@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Fredoka", ui-sans-serif, system-ui, sans-serif;
+  
+  --color-kids-blue: #4D96FF;
+  --color-kids-pink: #FF6B6B;
+  --color-kids-orange: #FFD93D;
+  --color-kids-yellow: #FFD93D;
+  --color-kids-green: #6BCB77;
+  --color-kids-purple: #9B72AA;
+  
+  --color-theme-abc: #FF8BA7;
+  --color-theme-123: #B8E064;
+  --color-theme-design: #FFD93D;
+  --color-theme-drawing: #6BCB77;
+  --color-theme-shapes: #4D96FF;
+  --color-theme-colors: #9B72AA;
+}
+
+body {
+  background-color: #E0F7FA;
+  color: #333;
+  overflow: hidden;
+}
+
+/* 9:19.5 Aspect Ratio Mockup for Android (Standard S24/Pixel style) */
+.mobile-mockup {
+  aspect-ratio: 9/19.5;
+  width: min(90vw, 400px);
+  position: relative;
+  background: #fff;
+  border-radius: 40px;
+  box-shadow: 
+    0 40px 100px -20px rgba(0, 0, 0, 0.2),
+    0 10px 20px -10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  border: 8px solid #1a1a1a;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Punch hole camera */
+.mobile-mockup::after {
+  content: "";
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  background: #000;
+  border-radius: 50%;
+  z-index: 1000;
+  box-shadow: 0 0 2px rgba(255,255,255,0.1);
+}
+
+@media (max-width: 640px) {
+  .mobile-mockup {
+    width: 100vw;
+    height: 100vh;
+    border: none;
+    border-radius: 0;
+    aspect-ratio: auto;
+  }
+  .mobile-mockup::after {
+    display: none;
+  }
+}
+
+.bold-card-shadow-blue { box-shadow: 0 8px 0 #3A72C2; }
+.bold-card-shadow-pink { box-shadow: 0 8px 0 #D86B84; }
+.bold-card-shadow-orange { box-shadow: 0 8px 0 #D9B626; }
+.bold-card-shadow-green { box-shadow: 0 8px 0 #4D9A58; }
+.bold-card-shadow-purple { box-shadow: 0 8px 0 #7A5886; }
+.bold-card-shadow-lime { box-shadow: 0 8px 0 #8EB048; }
+
+
+.bold-card-active {
+  transform: translateY(4px);
+  box-shadow: 0 4px 0 currentColor;
+}

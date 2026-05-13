@@ -1,0 +1,220 @@
+import React, { useState, useRef, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { ChevronLeft, Volume2, Sparkles, Eraser, Pencil, Trophy, Home as HomeIcon } from 'lucide-react';
+import { useSound } from '../hooks/useSound';
+import { AdBanner } from './AdBanner';
+
+interface ABCPageProps {
+  onBack: () => void;
+}
+
+const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+const WORDS: Record<string, { word: string; emoji: string; color: string; image?: string }> = {
+  A: { word: "Apple", emoji: "🍎", color: "bg-red-400", image: "/stickers/apple.png" },
+  B: { word: "Banana", emoji: "🍌", color: "bg-yellow-400", image: "/stickers/banana.png" },
+  C: { word: "Cherry", emoji: "🍒", color: "bg-red-500", image: "/stickers/cherry.png" },
+  D: { word: "Dolphin", emoji: "🐬", color: "bg-blue-400", image: "/stickers/dolphin.png" },
+  E: { word: "Elephant", emoji: "🐘", color: "bg-gray-400" },
+  F: { word: "Fish", emoji: "🐟", color: "bg-cyan-400", image: "/stickers/clownfish.png" },
+  G: { word: "Grapes", emoji: "🍇", color: "bg-purple-500", image: "/stickers/grapes.png" },
+  H: { word: "Hibiscus", emoji: "🌺", color: "bg-pink-400", image: "/stickers/hibiscus.png" },
+  I: { word: "Ice Cream", emoji: "🍦", color: "bg-pink-300" },
+  J: { word: "Jellyfish", emoji: "🪼", color: "bg-purple-300", image: "/stickers/jellyfish.png" },
+  K: { word: "Kangaroo", emoji: "🦘", color: "bg-orange-500" },
+  L: { word: "Lily", emoji: "🪻", color: "bg-indigo-300", image: "/stickers/lily.png" },
+  M: { word: "Mango", emoji: "🥭", color: "bg-amber-500", image: "/stickers/mango.png" },
+  N: { word: "Newt", emoji: "🦎", color: "bg-lime-500" },
+  O: { word: "Orange", emoji: "🍊", color: "bg-orange-500", image: "/stickers/orange.png" },
+  P: { word: "Panda", emoji: "🐼", color: "bg-gray-700", image: "/stickers/panda.png" },
+  Q: { word: "Queen", emoji: "👸", color: "bg-purple-600" },
+  R: { word: "Rose", emoji: "🌹", color: "bg-red-500", image: "/stickers/rose.png" },
+  S: { word: "Strawberry", emoji: "🍓", color: "bg-red-400", image: "/stickers/strawberry.png" },
+  T: { word: "Tiger", emoji: "🐯", color: "bg-orange-600", image: "/stickers/tiger.png" },
+  U: { word: "Unicorn", emoji: "🦄", color: "bg-fuchsia-500" },
+  V: { word: "Vulture", emoji: "🦅", color: "bg-stone-600" },
+  W: { word: "Whale", emoji: "🐳", color: "bg-blue-600", image: "/stickers/whale.png" },
+  X: { word: "Xylophone", emoji: "🎼", color: "bg-rose-500" },
+  Y: { word: "Yak", emoji: "🐂", color: "bg-amber-900" },
+  Z: { word: "Zebra", emoji: "🦓", color: "bg-zinc-800", image: "/stickers/zebra.png" },
+};
+
+export const ABCPage = ({ onBack }: ABCPageProps) => {
+  const { playSound } = useSound();
+  const [activeLetter, setActiveLetter] = useState<string | null>(null);
+  const [showTrophy, setShowTrophy] = useState(false);
+
+  const speak = (letter: string, word: string) => {
+    playSound('sparkle');
+    window.speechSynthesis.cancel();
+    
+    const utterance = new SpeechSynthesisUtterance(`${letter} is for ${word}`);
+    utterance.lang = 'en-US';
+    utterance.rate = 0.9;
+    utterance.pitch = 1.4;
+    utterance.volume = 1.0;
+    
+    const voices = window.speechSynthesis.getVoices();
+    const friendlyVoice = voices.find(v => (v.name.includes('Google') || v.name.includes('Female')) && v.lang.startsWith('en')) || voices.find(v => v.lang.startsWith('en')) || voices[0];
+    if (friendlyVoice) utterance.voice = friendlyVoice;
+
+    window.speechSynthesis.speak(utterance);
+  };
+
+  const handleLetterClick = (letter: string) => {
+    if (activeLetter) return;
+    
+    playSound('pop');
+    setActiveLetter(letter);
+    speak(letter, WORDS[letter].word);
+
+    setTimeout(() => {
+      setActiveLetter(null);
+    }, 2500);
+  };
+
+  return (
+    <div className="h-full flex flex-col bg-[#A3E4FF] relative overflow-hidden">
+      {/* Cartoon Decoration */}
+      <div className="absolute top-0 right-0 p-4 opacity-20 pointer-events-none">
+        <Sparkles size={100} className="text-white" />
+      </div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="flex flex-col flex-1 px-4 pt-4 pb-1"
+      >
+        {/* Header */}
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-2">
+            <motion.button
+              whileTap={{ scale: 0.9, translateY: 4 }}
+              onClick={() => { playSound('pop'); onBack(); }}
+              className="bg-kids-pink text-white p-2 rounded-xl"
+            >
+              <ChevronLeft size={20} strokeWidth={4} />
+            </motion.button>
+            <h1 className="text-xl font-black text-white drop-shadow-md">ABC Book</h1>
+          </div>
+          
+          <motion.button
+            whileTap={{ scale: 0.9, translateY: 4 }}
+            onClick={() => { playSound('sparkle'); setShowTrophy(true); }}
+            className="bg-kids-yellow text-white px-3 py-1.5 rounded-xl font-black text-xs flex items-center gap-1.5"
+          >
+            <Sparkles size={14} className="fill-current" />
+            FINISH
+          </motion.button>
+        </div>
+
+        {/* Grid */}
+        <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar scrollbar-hide">
+          <div className="grid grid-cols-4 gap-2 pb-4">
+            {ALPHABET.map((letter, i) => (
+              <motion.button
+                key={letter}
+                initial={{ scale: 0, rotate: -5 }}
+                animate={{ 
+                  scale: 1, 
+                  rotate: 0,
+                  y: [0, i % 2 === 0 ? -5 : 5, 0] 
+                }}
+                transition={{ 
+                  scale: { delay: i * 0.02, type: "spring" },
+                  y: { duration: 3 + Math.random(), repeat: Infinity, ease: "easeInOut" }
+                }}
+                whileHover={{ scale: 1.1, rotate: 2 }}
+                whileTap={{ scale: 0.9, translateY: 6 }}
+                onClick={() => handleLetterClick(letter)}
+                className={`aspect-square rounded-[24px] ${WORDS[letter].color} flex items-center justify-center text-3xl font-black text-white bold-card-shadow-blue shadow-lg border-4 border-white/50 transition-all overflow-hidden relative ${letter === 'Y' ? 'col-start-2' : ''}`}
+              >
+                <AnimatePresence mode="wait">
+                  {activeLetter === letter ? (
+                    <motion.div
+                      key="emoji"
+                      initial={{ rotateY: 90, opacity: 0 }}
+                      animate={{ rotateY: 0, opacity: 1 }}
+                      exit={{ rotateY: -90, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="absolute inset-0 flex flex-col items-center justify-center p-2 bg-white/20 backdrop-blur-sm"
+                    >
+                      {WORDS[letter].image ? (
+                        <img 
+                          src={WORDS[letter].image} 
+                          alt={WORDS[letter].word} 
+                          className="w-16 h-16 object-contain mb-1 drop-shadow-md"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).style.display = 'none';
+                          }}
+                        />
+                      ) : (
+                        <span className="text-4xl mb-1 drop-shadow-md">{WORDS[letter].emoji}</span>
+                      )}
+                      <span className="text-[10px] uppercase font-black tracking-tighter text-white drop-shadow-sm">{WORDS[letter].word}</span>
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="letter"
+                      initial={{ rotateY: -90, opacity: 0 }}
+                      animate={{ rotateY: 0, opacity: 1 }}
+                      exit={{ rotateY: 90, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="drop-shadow-md"
+                    >
+                      {letter}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.button>
+            ))}
+          </div>
+        </div>
+      </motion.div>
+      
+      <div className="px-3 pb-4 relative z-[60]">
+        <AdBanner />
+      </div>
+
+      <AnimatePresence>
+        {showTrophy && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="absolute inset-0 z-50 bg-kids-pink/90 flex flex-col items-center justify-center p-8 text-center"
+          >
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1, rotate: [0, 10, -10, 0] }}
+              transition={{ delay: 0.2, type: "spring" }}
+              className="bg-kids-yellow p-8 rounded-[50px] shadow-2xl border-8 border-white mb-8"
+            >
+              <Trophy size={100} className="text-white" strokeWidth={3} />
+            </motion.div>
+            <h2 className="text-5xl font-black text-white mb-2">FANTASTIC!</h2>
+            <p className="text-white/80 font-bold text-xl mb-12 uppercase tracking-widest">You learned all your ABCs!</p>
+            
+            <div className="flex flex-col gap-4 w-full max-w-xs">
+              <motion.button
+                whileTap={{ scale: 0.9, translateY: 4 }}
+                onClick={() => setShowTrophy(false)}
+                className="bg-white text-kids-pink px-8 py-4 rounded-full font-black text-xl shadow-xl border-b-8 border-pink-100 flex items-center justify-center gap-3"
+              >
+                <Sparkles className="fill-current" />
+                KEEP READING
+              </motion.button>
+              
+              <motion.button
+                whileTap={{ scale: 0.9, translateY: 4 }}
+                onClick={() => { playSound('pop'); onBack(); }}
+                className="bg-kids-blue text-white px-8 py-4 rounded-full font-black text-xl shadow-xl border-b-8 border-blue-700 flex items-center justify-center gap-3"
+              >
+                <HomeIcon className="fill-current" />
+                GO HOME
+              </motion.button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
