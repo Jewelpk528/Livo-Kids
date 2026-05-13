@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ChevronLeft, Sparkles, Trophy, Home as HomeIcon } from 'lucide-react';
+import { ChevronLeft, Sparkles } from 'lucide-react';
+import { TrophyModal } from './TrophyModal';
 import { useSound } from '../hooks/useSound';
 import { AdBanner } from './AdBanner';
 import { speak as speakText } from '../lib/speech';
@@ -148,46 +149,15 @@ export const NumbersPage = ({ onBack }: NumbersPageProps) => {
         <AdBanner />
       </div>
 
-      <AnimatePresence>
-        {showTrophy && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="absolute inset-0 z-50 bg-kids-blue/95 flex flex-col items-center justify-center p-8 text-center"
-          >
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1, rotate: [0, 10, -10, 0] }}
-              transition={{ delay: 0.2, type: "spring" }}
-              className="bg-kids-yellow p-8 rounded-[50px] shadow-2xl border-8 border-white mb-8"
-            >
-              <Trophy size={100} className="text-white" strokeWidth={3} />
-            </motion.div>
-            <h2 className="text-5xl font-black text-white mb-2">AMAZING!</h2>
-            <p className="text-white/80 font-bold text-xl mb-12 uppercase tracking-widest">You reached number 20!</p>
-            
-            <div className="flex flex-col gap-4 w-full max-w-xs">
-              <motion.button
-                whileTap={{ scale: 0.9, translateY: 4 }}
-                onClick={() => setShowTrophy(false)}
-                className="bg-white text-kids-blue px-8 py-4 rounded-full font-black text-xl shadow-xl border-b-8 border-blue-100 flex items-center justify-center gap-3"
-              >
-                <Sparkles className="fill-current text-kids-yellow" />
-                COUNT AGAIN
-              </motion.button>
-              
-              <motion.button
-                whileTap={{ scale: 0.9, translateY: 4 }}
-                onClick={() => { playSound('pop'); onBack(); }}
-                className="bg-kids-pink text-white px-8 py-4 rounded-full font-black text-xl shadow-xl border-b-8 border-pink-700 flex items-center justify-center gap-3"
-              >
-                <HomeIcon className="fill-current" />
-                GO HOME
-              </motion.button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <TrophyModal 
+        isOpen={showTrophy}
+        onClose={() => setShowTrophy(false)}
+        onHome={onBack}
+        title="AMAZING!"
+        subtitle="You reached number 20!"
+        primaryActionText="COUNT AGAIN"
+        bgClass="bg-kids-blue/95"
+      />
     </div>
   );
 };

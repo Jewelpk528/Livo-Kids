@@ -4,7 +4,6 @@ import { useSound } from '../hooks/useSound';
 import { 
   BookOpen, 
   Hash, 
-  Palette, 
   Flower, 
   Shapes as ShapesIcon, 
   PaintBucket
@@ -55,7 +54,7 @@ export const HomeView = ({ onSelectCategory }: { onSelectCategory: (id: string) 
     { id: 'abc', title: 'ABC Book', icon: <BookOpen size={28} />, color: 'bg-theme-abc', shadowClass: 'bold-card-shadow-pink' },
     { id: '123', title: '123 Book', icon: <Hash size={28} />, color: 'bg-theme-123', shadowClass: 'bold-card-shadow-lime' },
     { id: 'animals', title: 'Animals', icon: (
-      <img src="/animals_logo.png" className="w-10 h-10 object-contain" alt="Animals" referrerPolicy="no-referrer" />
+      <img src="/animals_logo.png" className="w-9 h-9 object-contain" alt="Animals" referrerPolicy="no-referrer" />
     ), color: 'bg-theme-design', shadowClass: 'bold-card-shadow-orange' },
     { id: 'drawing', title: 'Flowers & Fruits', icon: <Flower size={28} />, color: 'bg-theme-drawing', shadowClass: 'bold-card-shadow-green' },
     { id: 'shape', title: 'Shapes', icon: <ShapesIcon size={28} />, color: 'bg-theme-shapes', shadowClass: 'bold-card-shadow-blue' },

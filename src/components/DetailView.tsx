@@ -12,7 +12,6 @@ import {
   Sparkles,
   BookOpen, 
   Hash, 
-  Palette, 
   Flower, 
   Shapes as ShapesIcon, 
   PaintBucket
@@ -72,7 +71,7 @@ export const DetailView = ({ categoryId, onBack }: DetailViewProps) => {
           </motion.button>
           <span className={`text-2xl sm:text-3xl font-black ${current.color} tracking-tight drop-shadow-sm`}>{current.title}</span>
           <motion.button
-            whileTap={{ scale: 0.9 }}
+            whileTap={{ scale: 0.88 }}
             onClick={() => playSound('sparkle')}
             className="bg-gray-50 text-gray-400 p-3 rounded-2xl border-2 border-gray-100 shadow-sm"
           >
@@ -83,7 +82,7 @@ export const DetailView = ({ categoryId, onBack }: DetailViewProps) => {
         <div className="flex-1 flex flex-col items-center justify-start pt-4 relative">
           <motion.div
             initial={{ scale: 0.5, opacity: 0, rotate: -10 }}
-            animate={{ scale: 0.93, opacity: 1, rotate: 0 }}
+            animate={{ scale: 0.88, opacity: 1, rotate: 0 }}
             transition={{ type: "spring", damping: 12, stiffness: 100 }}
             className={`w-full max-w-[240px] aspect-square rounded-[50px] ${current.bg} flex items-center justify-center text-white ${current.shadow} relative overflow-hidden shadow-2xl shadow-black/10`}
           >
