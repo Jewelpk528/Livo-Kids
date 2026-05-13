@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { ChevronLeft, Volume2, Sparkles, Eraser, Pencil, Trophy, Home as HomeIcon } from 'lucide-react';
 import { useSound } from '../hooks/useSound';
 import { AdBanner } from './AdBanner';
+import { speak as speakText } from '../lib/speech';
 
 interface ABCPageProps {
   onBack: () => void;
@@ -10,32 +11,32 @@ interface ABCPageProps {
 
 const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 const WORDS: Record<string, { word: string; emoji: string; color: string; image?: string }> = {
-  A: { word: "Apple", emoji: "🍎", color: "bg-red-400", image: "/stickers/apple.png" },
-  B: { word: "Banana", emoji: "🍌", color: "bg-yellow-400", image: "/stickers/banana.png" },
-  C: { word: "Cherry", emoji: "🍒", color: "bg-red-500", image: "/stickers/cherry.png" },
-  D: { word: "Dolphin", emoji: "🐬", color: "bg-blue-400", image: "/stickers/dolphin.png" },
+  A: { word: "Apple", emoji: "🍎", color: "bg-red-400" },
+  B: { word: "Ball", emoji: "⚽", color: "bg-blue-400" },
+  C: { word: "Cat", emoji: "🐱", color: "bg-orange-400" },
+  D: { word: "Dog", emoji: "🐶", color: "bg-amber-600" },
   E: { word: "Elephant", emoji: "🐘", color: "bg-gray-400" },
-  F: { word: "Fish", emoji: "🐟", color: "bg-cyan-400", image: "/stickers/clownfish.png" },
-  G: { word: "Grapes", emoji: "🍇", color: "bg-purple-500", image: "/stickers/grapes.png" },
-  H: { word: "Hibiscus", emoji: "🌺", color: "bg-pink-400", image: "/stickers/hibiscus.png" },
+  F: { word: "Fish", emoji: "🐟", color: "bg-cyan-400" },
+  G: { word: "Giraffe", emoji: "🦒", color: "bg-yellow-500" },
+  H: { word: "Horse", emoji: "🐴", color: "bg-brown-600" },
   I: { word: "Ice Cream", emoji: "🍦", color: "bg-pink-300" },
   J: { word: "Jellyfish", emoji: "🪼", color: "bg-purple-300", image: "/stickers/jellyfish.png" },
   K: { word: "Kangaroo", emoji: "🦘", color: "bg-orange-500" },
-  L: { word: "Lily", emoji: "🪻", color: "bg-indigo-300", image: "/stickers/lily.png" },
-  M: { word: "Mango", emoji: "🥭", color: "bg-amber-500", image: "/stickers/mango.png" },
+  L: { word: "Lion", emoji: "🦁", color: "bg-orange-400" },
+  M: { word: "Monkey", emoji: "🐒", color: "bg-amber-800" },
   N: { word: "Newt", emoji: "🦎", color: "bg-lime-500" },
-  O: { word: "Orange", emoji: "🍊", color: "bg-orange-500", image: "/stickers/orange.png" },
-  P: { word: "Panda", emoji: "🐼", color: "bg-gray-700", image: "/stickers/panda.png" },
+  O: { word: "Owl", emoji: "🦉", color: "bg-indigo-500" },
+  P: { word: "Panda", emoji: "🐼", color: "bg-gray-700" },
   Q: { word: "Queen", emoji: "👸", color: "bg-purple-600" },
-  R: { word: "Rose", emoji: "🌹", color: "bg-red-500", image: "/stickers/rose.png" },
-  S: { word: "Strawberry", emoji: "🍓", color: "bg-red-400", image: "/stickers/strawberry.png" },
-  T: { word: "Tiger", emoji: "🐯", color: "bg-orange-600", image: "/stickers/tiger.png" },
+  R: { word: "Rabbit", emoji: "🐰", color: "bg-pink-300" },
+  S: { word: "Snake", emoji: "🐍", color: "bg-emerald-600" },
+  T: { word: "Tiger", emoji: "🐯", color: "bg-orange-600" },
   U: { word: "Unicorn", emoji: "🦄", color: "bg-fuchsia-500" },
   V: { word: "Vulture", emoji: "🦅", color: "bg-stone-600" },
-  W: { word: "Whale", emoji: "🐳", color: "bg-blue-600", image: "/stickers/whale.png" },
-  X: { word: "Xylophone", emoji: "🎼", color: "bg-rose-500" },
+  W: { word: "Whale", emoji: "🐳", color: "bg-blue-600" },
+  X: { word: "Xylophone", emoji: "🪘", color: "bg-rose-500", image: "https://images.unsplash.com/photo-1594121516032-6804868087bd?w=400&q=80" },
   Y: { word: "Yak", emoji: "🐂", color: "bg-amber-900" },
-  Z: { word: "Zebra", emoji: "🦓", color: "bg-zinc-800", image: "/stickers/zebra.png" },
+  Z: { word: "Zebra", emoji: "🦓", color: "bg-zinc-800" },
 };
 
 export const ABCPage = ({ onBack }: ABCPageProps) => {
@@ -45,19 +46,7 @@ export const ABCPage = ({ onBack }: ABCPageProps) => {
 
   const speak = (letter: string, word: string) => {
     playSound('sparkle');
-    window.speechSynthesis.cancel();
-    
-    const utterance = new SpeechSynthesisUtterance(`${letter} is for ${word}`);
-    utterance.lang = 'en-US';
-    utterance.rate = 0.9;
-    utterance.pitch = 1.4;
-    utterance.volume = 1.0;
-    
-    const voices = window.speechSynthesis.getVoices();
-    const friendlyVoice = voices.find(v => (v.name.includes('Google') || v.name.includes('Female')) && v.lang.startsWith('en')) || voices.find(v => v.lang.startsWith('en')) || voices[0];
-    if (friendlyVoice) utterance.voice = friendlyVoice;
-
-    window.speechSynthesis.speak(utterance);
+    speakText(`${letter} is for ${word}`);
   };
 
   const handleLetterClick = (letter: string) => {
@@ -139,14 +128,17 @@ export const ABCPage = ({ onBack }: ABCPageProps) => {
                       className="absolute inset-0 flex flex-col items-center justify-center p-2 bg-white/20 backdrop-blur-sm"
                     >
                       {WORDS[letter].image ? (
-                        <img 
-                          src={WORDS[letter].image} 
-                          alt={WORDS[letter].word} 
-                          className="w-16 h-16 object-contain mb-1 drop-shadow-md"
-                          onError={(e) => {
-                            (e.target as HTMLImageElement).style.display = 'none';
-                          }}
-                        />
+                        <div className="w-full h-1/2 mb-1 relative flex items-center justify-center translate-y-1">
+                          <img 
+                            src={WORDS[letter].image} 
+                            alt={WORDS[letter].word}
+                            className="max-w-full max-h-full object-contain drop-shadow-md z-10"
+                            referrerPolicy="no-referrer"
+                            onError={(e) => {
+                              (e.target as HTMLImageElement).style.display = 'none';
+                            }}
+                          />
+                        </div>
                       ) : (
                         <span className="text-4xl mb-1 drop-shadow-md">{WORDS[letter].emoji}</span>
                       )}

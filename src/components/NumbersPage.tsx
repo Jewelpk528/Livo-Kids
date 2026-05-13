@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { ChevronLeft, Sparkles, Trophy, Home as HomeIcon } from 'lucide-react';
 import { useSound } from '../hooks/useSound';
 import { AdBanner } from './AdBanner';
+import { speak as speakText } from '../lib/speech';
 
 interface NumbersPageProps {
   onBack: () => void;
@@ -40,19 +41,7 @@ export const NumbersPage = ({ onBack }: NumbersPageProps) => {
 
   const speak = (num: string, word: string) => {
     playSound('sparkle');
-    window.speechSynthesis.cancel();
-    
-    const utterance = new SpeechSynthesisUtterance(`${num}. ${num === "1" ? "" : num} ${word}`);
-    utterance.lang = 'en-US';
-    utterance.rate = 0.9;
-    utterance.pitch = 1.4;
-    utterance.volume = 1.0;
-    
-    const voices = window.speechSynthesis.getVoices();
-    const friendlyVoice = voices.find(v => (v.name.includes('Google') || v.name.includes('Female')) && v.lang.startsWith('en')) || voices.find(v => v.lang.startsWith('en')) || voices[0];
-    if (friendlyVoice) utterance.voice = friendlyVoice;
-
-    window.speechSynthesis.speak(utterance);
+    speakText(`${num}. ${num === "1" ? "" : num} ${word}`);
   };
 
   const handleNumberClick = (num: string) => {

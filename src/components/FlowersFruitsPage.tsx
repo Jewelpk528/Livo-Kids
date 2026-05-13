@@ -10,6 +10,7 @@ import {
   CheckCircle2
 } from "lucide-react";
 import { AdBanner } from './AdBanner';
+import { speak as speakText } from '../lib/speech';
 
 interface FlowersFruitsPageProps {
   onBack: () => void;
@@ -58,19 +59,7 @@ export const FlowersFruitsPage = ({ onBack }: FlowersFruitsPageProps) => {
 
   const speak = (text: string) => {
     playSound('pop');
-    window.speechSynthesis.cancel();
-    
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'en-US';
-    utterance.rate = 0.9;
-    utterance.pitch = 1.4;
-    utterance.volume = 1.0;
-    
-    const voices = window.speechSynthesis.getVoices();
-    const friendlyVoice = voices.find(v => (v.name.includes('Google') || v.name.includes('Female')) && v.lang.startsWith('en')) || voices.find(v => v.lang.startsWith('en')) || voices[0];
-    if (friendlyVoice) utterance.voice = friendlyVoice;
-
-    window.speechSynthesis.speak(utterance);
+    speakText(text);
   };
 
   const handleNext = () => {

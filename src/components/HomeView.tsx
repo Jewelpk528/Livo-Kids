@@ -30,25 +30,12 @@ const LearningCard = ({ title, icon, color, shadowClass, onClick }: CardProps) =
 
   return (
     <motion.button
-      whileHover="hover"
+      whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98, translateY: 4 }}
       onClick={handleClick}
       className={`${color} ${shadowClass} rounded-[40px] p-5 flex flex-col items-center justify-center gap-2 aspect-square text-white cursor-pointer group active:translate-y-1 transition-all w-full overflow-hidden`}
     >
       <motion.div 
-        variants={{
-          hover: { 
-            scale: 1.15, 
-            rotate: [0, -10, 10, 0],
-            y: -5,
-            transition: { 
-              rotate: { repeat: Infinity, duration: 0.4 },
-              type: "spring",
-              stiffness: 400,
-              damping: 10
-            }
-          }
-        }}
         animate={{ rotate: [0, -3, 3, 0] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
         className="bg-white w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center shadow-inner"

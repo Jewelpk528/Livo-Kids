@@ -5,7 +5,6 @@ import {
   ChevronLeft, 
   ChevronRight, 
   Volume2, 
-  Flower, 
   PawPrint, 
   Bird, 
   Fish, 
@@ -13,6 +12,7 @@ import {
   CheckCircle2
 } from "lucide-react";
 import { AdBanner } from './AdBanner';
+import { speak as speakText } from '../lib/speech';
 
 interface AnimalsBookPageProps {
   onBack: () => void;
@@ -25,6 +25,7 @@ const bookData = [
     color: "bg-orange-50",
     theme: "text-orange-600",
     items: [
+      { name: "Bear", color: "bg-orange-50", image: "https://images.unsplash.com/photo-1581333100576-b7396a2100a1?w=400&q=80" },
       { name: "Tiger", color: "bg-amber-50", image: "/stickers/tiger.png" },
       { name: "Panda", color: "bg-slate-50", image: "/stickers/panda.png" },
       { name: "Zebra", color: "bg-neutral-50", image: "/stickers/zebra.png" },
@@ -32,7 +33,6 @@ const bookData = [
       { name: "Elephant", color: "bg-slate-50", image: "/stickers/elephant.png" },
       { name: "Giraffe", color: "bg-yellow-50", image: "/stickers/giraffe.png" },
       { name: "Monkey", color: "bg-stone-50", image: "/stickers/monkey.png" },
-      { name: "Bear", color: "bg-orange-50", image: "/stickers/bear.png" },
     ]
   },
   {
@@ -45,7 +45,12 @@ const bookData = [
       { name: "Eagle", color: "bg-amber-50", image: "/stickers/eagle.png" },
       { name: "Owl", color: "bg-stone-50", image: "/stickers/owl.png" },
       { name: "Sparrow", color: "bg-orange-50", image: "/stickers/sparrow.png" },
+      { name: "Pigeon", color: "bg-blue-50", image: "/stickers/pigeon.png" },
       { name: "Peacock", color: "bg-blue-50", image: "/stickers/peacock.png" },
+      { name: "Kingfisher", color: "bg-blue-50", image: "/stickers/kingfisher.png" },
+      { name: "Woodpecker", color: "bg-blue-50", image: "/stickers/woodpecker.png" },
+      { name: "Penguin", color: "bg-slate-50", image: "/stickers/penguin.png" },
+      { name: "Swan", color: "bg-sky-50", image: "/stickers/swan.png" },
     ]
   },
   {
@@ -92,19 +97,7 @@ export const AnimalsBookPage = ({ onBack }: AnimalsBookPageProps) => {
 
   const speak = (text: string) => {
     playSound('pop');
-    window.speechSynthesis.cancel();
-    
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'en-US';
-    utterance.rate = 0.9;
-    utterance.pitch = 1.4;
-    utterance.volume = 1.0;
-    
-    const voices = window.speechSynthesis.getVoices();
-    const friendlyVoice = voices.find(v => (v.name.includes('Google') || v.name.includes('Female')) && v.lang.startsWith('en')) || voices.find(v => v.lang.startsWith('en')) || voices[0];
-    if (friendlyVoice) utterance.voice = friendlyVoice;
-
-    window.speechSynthesis.speak(utterance);
+    speakText(text);
   };
 
   const handleNext = () => {
@@ -179,9 +172,12 @@ export const AnimalsBookPage = ({ onBack }: AnimalsBookPageProps) => {
                       (e.target as HTMLImageElement).style.display = 'none';
                     }}
                    />
-                   <div className="absolute inset-0 flex items-center justify-center opacity-20">
-                      {page.category === "Animals" ? <PawPrint size={40} /> : page.category === "Birds" ? <Bird size={40} /> : <Fish size={40} />}
-                   </div>
+                    <div className="absolute inset-0 flex items-center justify-center opacity-20">
+                      {page.category === "Animals" ? <PawPrint size={40} /> : 
+                       page.category === "Birds" ? <Bird size={40} /> : 
+                       page.category === "Fish" ? <Fish size={40} /> : 
+                       <Trees size={40} />}
+                    </div>
                 </div>
                 <div className="py-1 text-center bg-white/80 backdrop-blur-sm">
                   <span className="font-black text-[9px] text-gray-800 uppercase tracking-wider truncate px-1">{item.name}</span>
