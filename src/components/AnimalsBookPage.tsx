@@ -9,13 +9,26 @@ interface AnimalsBookPageProps {
 const bookData: BookCategory[] = [
   {
     category: "Animals",
-    icon: <PawPrint size={18} className="text-orange-500" />,
+    icon: (
+      <div className="relative w-6 h-6 flex items-center justify-center translate-y-[-1px]">
+        <PawPrint size={18} className="text-orange-500 absolute" />
+        <img 
+          src="/animals_logo.png" 
+          className="w-full h-full object-contain relative z-10" 
+          alt="" 
+          referrerPolicy="no-referrer"
+          onError={(e) => {
+            (e.target as HTMLImageElement).style.display = 'none';
+          }}
+        />
+      </div>
+    ),
     color: "bg-orange-50",
     theme: "text-orange-600",
     items: [
+      { name: "Panda", color: "bg-slate-50", image: "/stickers/panda.png" },
       { name: "Bear", color: "bg-orange-50", image: "/stickers/bear.png" },
       { name: "Tiger", color: "bg-amber-50", image: "/stickers/tiger.png" },
-      { name: "Panda", color: "bg-slate-50", image: "/stickers/panda.png" },
       { name: "Zebra", color: "bg-neutral-50", image: "/stickers/zebra.png" },
       { name: "Lion", color: "bg-orange-50", image: "/stickers/lion.png" },
       { name: "Elephant", color: "bg-slate-50", image: "/stickers/elephant.png" },

@@ -14,7 +14,8 @@ import {
   Hash, 
   Flower, 
   Shapes as ShapesIcon, 
-  PaintBucket
+  PaintBucket,
+  PawPrint
 } from "lucide-react";
 import { AnimalsBookPage } from './AnimalsBookPage';
 import { FlowersFruitsPage } from './FlowersFruitsPage';
@@ -32,7 +33,18 @@ export const DetailView = ({ categoryId, onBack }: DetailViewProps) => {
     abc: { title: 'ABC Book', color: 'text-kids-pink', bg: 'bg-theme-abc', icon: <BookOpen size={80} />, shadow: 'bold-card-shadow-pink' },
     '123': { title: '123 Book', color: 'text-kids-green', bg: 'bg-theme-123', icon: <Hash size={80} />, shadow: 'bold-card-shadow-lime' },
     animals: { title: 'Animals', color: 'text-kids-orange', bg: 'bg-theme-design', icon: (
-      <img src="/animals_logo.png" className="w-24 h-24 object-contain" alt="Animals" referrerPolicy="no-referrer" />
+      <div className="relative w-24 h-24 flex items-center justify-center">
+        <PawPrint size={72} className="text-white absolute" />
+        <img 
+          src="/animals_logo.png" 
+          className="w-full h-full object-contain relative z-10" 
+          alt="" 
+          referrerPolicy="no-referrer"
+          onError={(e) => {
+            (e.target as HTMLImageElement).style.display = 'none';
+          }}
+        />
+      </div>
     ), shadow: 'bold-card-shadow-orange' },
     drawing: { title: 'Flowers & Fruits', color: 'text-kids-green', bg: 'bg-theme-drawing', icon: <Flower size={80} />, shadow: 'bold-card-shadow-green' },
     shape: { title: 'Shapes', color: 'text-kids-blue', bg: 'bg-theme-shapes', icon: <ShapesIcon size={80} />, shadow: 'bold-card-shadow-blue' },

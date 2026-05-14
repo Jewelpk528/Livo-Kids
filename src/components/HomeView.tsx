@@ -6,7 +6,8 @@ import {
   Hash, 
   Flower, 
   Shapes as ShapesIcon, 
-  PaintBucket
+  PaintBucket,
+  PawPrint
 } from "lucide-react";
 import { AdBanner } from './AdBanner';
 
@@ -49,12 +50,22 @@ const LearningCard = ({ title, icon, color, shadowClass, onClick }: CardProps) =
 };
 
 export const HomeView = ({ onSelectCategory }: { onSelectCategory: (id: string) => void }) => {
-  const { playSound } = useSound();
   const categories = [
     { id: 'abc', title: 'ABC Book', icon: <BookOpen size={28} />, color: 'bg-theme-abc', shadowClass: 'bold-card-shadow-pink' },
     { id: '123', title: '123 Book', icon: <Hash size={28} />, color: 'bg-theme-123', shadowClass: 'bold-card-shadow-lime' },
     { id: 'animals', title: 'Animals', icon: (
-      <img src="/animals_logo.png" className="w-9 h-9 object-contain" alt="Animals" referrerPolicy="no-referrer" />
+      <div className="relative w-10 h-10 flex items-center justify-center">
+        <PawPrint size={32} className="text-orange-500 absolute" />
+        <img 
+          src="/animals_logo.png" 
+          className="w-full h-full object-contain relative z-10" 
+          alt="" 
+          referrerPolicy="no-referrer"
+          onError={(e) => {
+            (e.target as HTMLImageElement).style.display = 'none';
+          }}
+        />
+      </div>
     ), color: 'bg-theme-design', shadowClass: 'bold-card-shadow-orange' },
     { id: 'drawing', title: 'Flowers & Fruits', icon: <Flower size={28} />, color: 'bg-theme-drawing', shadowClass: 'bold-card-shadow-green' },
     { id: 'shape', title: 'Shapes', icon: <ShapesIcon size={28} />, color: 'bg-theme-shapes', shadowClass: 'bold-card-shadow-blue' },

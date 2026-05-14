@@ -8,6 +8,7 @@ import {
   CheckCircle2
 } from "lucide-react";
 import { AdBanner } from './AdBanner';
+import { InterstitialAd } from './InterstitialAd';
 import { speak as speakText } from '../lib/speech';
 
 export interface BookItem {
@@ -43,6 +44,7 @@ export const GenericBook = ({
 }: GenericBookProps) => {
   const { playSound } = useSound();
   const [currentPage, setCurrentPage] = useState(0);
+  const [showAd, setShowAd] = useState(false);
 
   const speak = (text: string) => {
     playSound('pop');
@@ -53,6 +55,7 @@ export const GenericBook = ({
     if (currentPage < bookData.length - 1) {
       playSound('whoosh');
       setCurrentPage(prev => prev + 1);
+      setShowAd(true);
     }
   };
 
@@ -185,6 +188,8 @@ export const GenericBook = ({
       <div className="px-3 pb-4 relative z-[60]">
         <AdBanner />
       </div>
+
+      <InterstitialAd isOpen={showAd} onClose={() => setShowAd(false)} />
     </div>
   );
 };

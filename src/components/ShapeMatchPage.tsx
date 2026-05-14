@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ChevronLeft } from 'lucide-react';
 import { TrophyModal } from './TrophyModal';
+import { InterstitialAd } from './InterstitialAd';
 import { useSound } from '../hooks/useSound';
 import { AdBanner } from './AdBanner';
 
@@ -54,6 +55,7 @@ export const ShapeMatchPage = ({ onBack }: { onBack: () => void }) => {
   const [currentLevel, setCurrentLevel] = useState(0);
   const [matched, setMatched] = useState<string[]>([]);
   const [showTrophy, setShowTrophy] = useState(false);
+  const [showAd, setShowAd] = useState(false);
 
   const shapes = LEVELS[currentLevel];
 
@@ -69,12 +71,14 @@ export const ShapeMatchPage = ({ onBack }: { onBack: () => void }) => {
         setTimeout(() => {
           playSound('sparkle');
           setShowTrophy(true);
+          setShowAd(true);
         }, 500);
       } else {
         setTimeout(() => {
           playSound('pop');
           setCurrentLevel(prev => prev + 1);
           setMatched([]);
+          setShowAd(true);
         }, 1500);
       }
     }
@@ -167,6 +171,8 @@ export const ShapeMatchPage = ({ onBack }: { onBack: () => void }) => {
         primaryActionText="PLAY AGAIN"
         bgClass="bg-kids-blue/90"
       />
+
+      <InterstitialAd isOpen={showAd} onClose={() => setShowAd(false)} />
     </div>
   );
 };

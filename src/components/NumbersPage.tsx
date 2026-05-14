@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ChevronLeft, Sparkles } from 'lucide-react';
 import { TrophyModal } from './TrophyModal';
+import { InterstitialAd } from './InterstitialAd';
 import { useSound } from '../hooks/useSound';
 import { AdBanner } from './AdBanner';
 import { speak as speakText } from '../lib/speech';
@@ -39,6 +40,7 @@ export const NumbersPage = ({ onBack }: NumbersPageProps) => {
   const { playSound } = useSound();
   const [activeNumber, setActiveNumber] = useState<string | null>(null);
   const [showTrophy, setShowTrophy] = useState(false);
+  const [showAd, setShowAd] = useState(false);
 
   const speak = (num: string, word: string) => {
     playSound('sparkle');
@@ -55,6 +57,12 @@ export const NumbersPage = ({ onBack }: NumbersPageProps) => {
     setTimeout(() => {
       setActiveNumber(null);
     }, 2500);
+  };
+
+  const handleFinish = () => {
+    playSound('sparkle');
+    setShowTrophy(true);
+    setShowAd(true);
   };
 
   return (
@@ -84,7 +92,7 @@ export const NumbersPage = ({ onBack }: NumbersPageProps) => {
           
           <motion.button
             whileTap={{ scale: 0.9, translateY: 4 }}
-            onClick={() => { playSound('sparkle'); setShowTrophy(true); }}
+            onClick={handleFinish}
             className="bg-kids-yellow text-white px-3 py-1.5 rounded-xl font-black text-xs flex items-center gap-1.5"
           >
             <Sparkles size={14} className="fill-current" />
@@ -158,6 +166,8 @@ export const NumbersPage = ({ onBack }: NumbersPageProps) => {
         primaryActionText="COUNT AGAIN"
         bgClass="bg-kids-blue/95"
       />
+
+      <InterstitialAd isOpen={showAd} onClose={() => setShowAd(false)} />
     </div>
   );
 };

@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ChevronLeft, Sparkles } from 'lucide-react';
 import { TrophyModal } from './TrophyModal';
+import { InterstitialAd } from './InterstitialAd';
 import { useSound } from '../hooks/useSound';
 import { AdBanner } from './AdBanner';
 import { speak as speakText } from '../lib/speech';
@@ -44,6 +45,7 @@ export const ABCPage = ({ onBack }: ABCPageProps) => {
   const { playSound } = useSound();
   const [activeLetter, setActiveLetter] = useState<string | null>(null);
   const [showTrophy, setShowTrophy] = useState(false);
+  const [showAd, setShowAd] = useState(false);
 
   const speak = (letter: string, word: string) => {
     playSound('sparkle');
@@ -60,6 +62,12 @@ export const ABCPage = ({ onBack }: ABCPageProps) => {
     setTimeout(() => {
       setActiveLetter(null);
     }, 2500);
+  };
+
+  const handleFinish = () => {
+    playSound('sparkle');
+    setShowTrophy(true);
+    setShowAd(true);
   };
 
   return (
@@ -89,7 +97,7 @@ export const ABCPage = ({ onBack }: ABCPageProps) => {
           
           <motion.button
             whileTap={{ scale: 0.9, translateY: 4 }}
-            onClick={() => { playSound('sparkle'); setShowTrophy(true); }}
+            onClick={handleFinish}
             className="bg-kids-yellow text-white px-3 py-1.5 rounded-xl font-black text-xs flex items-center gap-1.5"
           >
             <Sparkles size={14} className="fill-current" />
@@ -176,6 +184,8 @@ export const ABCPage = ({ onBack }: ABCPageProps) => {
         subtitle="You learned all your ABCs!"
         primaryActionText="KEEP READING"
       />
+
+      <InterstitialAd isOpen={showAd} onClose={() => setShowAd(false)} />
     </div>
   );
 };
