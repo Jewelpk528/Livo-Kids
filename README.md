@@ -19,3 +19,4 @@ View your app in AI Studio: https://ai.studio/apps/25dfd83b-9136-4893-b362-52706
 3. Run the app:
    `npm run dev`
 "//trigger build" 
+"// rebuild trigger" 
