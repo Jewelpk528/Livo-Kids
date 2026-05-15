@@ -5,6 +5,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from "motion/react";
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import { Background } from './components/Background';
 import { HomeView } from './components/HomeView';
 import { DetailView } from './components/DetailView';
@@ -68,6 +69,7 @@ export default function App() {
         {/* Home Indicator */}
         <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-24 h-1 bg-black/10 rounded-full z-50 pointer-events-none" />
       </div>
+      <SpeedInsights />
     </div>
   );
 }
