@@ -51,11 +51,18 @@ const LearningCard = ({ title, icon, color, shadowClass, onClick }: CardProps) =
 
 export const HomeView = ({ onSelectCategory }: { onSelectCategory: (id: string) => void }) => {
   const categories = [
-    { id: 'abc', title: 'ABC Book', icon: <BookOpen size={28} />, color: 'bg-theme-abc', shadowClass: 'bold-card-shadow-pink' },
+    { id: 'abc', title: 'ABC Book', icon: (
+      <img 
+        src="/stickers/Apple-v1.png" 
+        className="w-10 h-10 object-contain" 
+        alt="" 
+        referrerPolicy="no-referrer"
+      />
+    ), color: 'bg-theme-abc', shadowClass: 'bold-card-shadow-pink' },
     { id: '123', title: '123 Book', icon: <Hash size={28} />, color: 'bg-theme-123', shadowClass: 'bold-card-shadow-lime' },
     { id: 'animals', title: 'Animals', icon: (
       <div className="relative w-10 h-10 flex items-center justify-center">
-        <PawPrint size={32} className="text-orange-500 absolute" />
+        <PawPrint size={32} className="text-orange-500 absolute scale-125" />
         <img 
           src="/animals_logo.png" 
           className="w-full h-full object-contain relative z-10" 
@@ -67,7 +74,14 @@ export const HomeView = ({ onSelectCategory }: { onSelectCategory: (id: string) 
         />
       </div>
     ), color: 'bg-theme-design', shadowClass: 'bold-card-shadow-orange' },
-    { id: 'drawing', title: 'Flowers & Fruits', icon: <Flower size={28} />, color: 'bg-theme-drawing', shadowClass: 'bold-card-shadow-green' },
+    { id: 'drawing', title: 'Nature Book', icon: (
+      <img 
+        src="/stickers/Rose-v1.png" 
+        className="w-10 h-10 object-contain" 
+        alt="" 
+        referrerPolicy="no-referrer"
+      />
+    ), color: 'bg-theme-drawing', shadowClass: 'bold-card-shadow-green' },
     { id: 'shape', title: 'Shapes', icon: <ShapesIcon size={28} />, color: 'bg-theme-shapes', shadowClass: 'bold-card-shadow-blue' },
     { id: 'color', title: 'Colors', icon: <PaintBucket size={28} />, color: 'bg-theme-colors', shadowClass: 'bold-card-shadow-purple' },
   ];

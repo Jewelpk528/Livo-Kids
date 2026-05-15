@@ -30,11 +30,18 @@ export const DetailView = ({ categoryId, onBack }: DetailViewProps) => {
   const [isPlaying, setIsPlaying] = useState(false);
   
   const contentMap: Record<string, { title: string; color: string; bg: string; icon: React.ReactNode; shadow: string }> = {
-    abc: { title: 'ABC Book', color: 'text-kids-pink', bg: 'bg-theme-abc', icon: <BookOpen size={80} />, shadow: 'bold-card-shadow-pink' },
+    abc: { title: 'ABC Book', color: 'text-kids-pink', bg: 'bg-theme-abc', icon: (
+      <img 
+        src="/stickers/Apple-v1.png" 
+        className="w-24 h-24 object-contain" 
+        alt="" 
+        referrerPolicy="no-referrer"
+      />
+    ), shadow: 'bold-card-shadow-pink' },
     '123': { title: '123 Book', color: 'text-kids-green', bg: 'bg-theme-123', icon: <Hash size={80} />, shadow: 'bold-card-shadow-lime' },
     animals: { title: 'Animals', color: 'text-kids-orange', bg: 'bg-theme-design', icon: (
       <div className="relative w-24 h-24 flex items-center justify-center">
-        <PawPrint size={72} className="text-white absolute" />
+        <PawPrint size={72} className="text-white absolute scale-110" />
         <img 
           src="/animals_logo.png" 
           className="w-full h-full object-contain relative z-10" 
@@ -46,7 +53,14 @@ export const DetailView = ({ categoryId, onBack }: DetailViewProps) => {
         />
       </div>
     ), shadow: 'bold-card-shadow-orange' },
-    drawing: { title: 'Flowers & Fruits', color: 'text-kids-green', bg: 'bg-theme-drawing', icon: <Flower size={80} />, shadow: 'bold-card-shadow-green' },
+    drawing: { title: 'Nature Book', color: 'text-kids-green', bg: 'bg-theme-drawing', icon: (
+      <img 
+        src="/stickers/Rose-v1.png" 
+        className="w-24 h-24 object-contain" 
+        alt="" 
+        referrerPolicy="no-referrer"
+      />
+    ), shadow: 'bold-card-shadow-green' },
     shape: { title: 'Shapes', color: 'text-kids-blue', bg: 'bg-theme-shapes', icon: <ShapesIcon size={80} />, shadow: 'bold-card-shadow-blue' },
     color: { title: 'Colors', color: 'text-kids-purple', bg: 'bg-theme-colors', icon: <PaintBucket size={80} />, shadow: 'bold-card-shadow-purple' },
   };
