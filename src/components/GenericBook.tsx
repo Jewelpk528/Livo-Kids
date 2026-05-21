@@ -17,6 +17,7 @@ export interface BookItem {
   image?: string;
   textColor?: string;
   border?: string;
+  size?: number;
 }
 
 export interface BookCategory {
@@ -33,6 +34,7 @@ interface GenericBookProps {
   onBack: () => void;
   completionMessage?: string;
   completionSubtext?: string;
+  subHeader?: React.ReactNode;
 }
 
 export const GenericBook = ({ 
@@ -40,7 +42,8 @@ export const GenericBook = ({
   bookData, 
   onBack, 
   completionMessage = "All Done!", 
-  completionSubtext = "You've learned them all!" 
+  completionSubtext = "You've learned them all!",
+  subHeader
 }: GenericBookProps) => {
   const { playSound } = useSound();
   const [currentPage, setCurrentPage] = useState(0);
@@ -96,6 +99,8 @@ export const GenericBook = ({
           </div>
         </div>
 
+        {subHeader}
+
         {/* Content Area */}
         <div className="flex-1 overflow-y-auto px-1 scrollbar-hide">
           <motion.div 
@@ -114,12 +119,13 @@ export const GenericBook = ({
                 onClick={() => speak(item.name)}
                 className={`${item.color} p-0 rounded-2xl shadow-sm border ${item.border || 'border-black/5'} flex flex-col items-stretch overflow-hidden h-[100px] relative active:shadow-inner transition-shadow`}
               >
-                <div className="flex-1 w-full relative overflow-hidden flex items-center justify-center p-2">
+                <div className="flex-1 w-full relative overflow-hidden flex items-center justify-center p-1.5">
                    {item.image ? (
                      <img 
                       src={item.image} 
                       alt={item.name}
-                      className="w-[95%] h-[95%] object-contain z-10"
+                      style={item.size ? { width: `${item.size}%`, height: `${item.size}%` } : undefined}
+                      className={item.size ? "object-contain z-10 transition-transform duration-200" : "w-full h-full scale-118 sm:scale-120 object-contain z-10 hover:scale-125 transition-transform duration-200"}
                       referrerPolicy="no-referrer"
                       onError={(e) => {
                         (e.target as HTMLImageElement).style.display = 'none';

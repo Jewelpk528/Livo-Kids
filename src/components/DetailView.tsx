@@ -15,7 +15,8 @@ import {
   Flower, 
   Shapes as ShapesIcon, 
   PaintBucket,
-  PawPrint
+  PawPrint,
+  Apple
 } from "lucide-react";
 import { AnimalsBookPage } from './AnimalsBookPage';
 import { FlowersFruitsPage } from './FlowersFruitsPage';
@@ -30,14 +31,7 @@ export const DetailView = ({ categoryId, onBack }: DetailViewProps) => {
   const [isPlaying, setIsPlaying] = useState(false);
   
   const contentMap: Record<string, { title: string; color: string; bg: string; icon: React.ReactNode; shadow: string }> = {
-    abc: { title: 'ABC Book', color: 'text-kids-pink', bg: 'bg-theme-abc', icon: (
-      <img 
-        src="/stickers/Apple-v1.png" 
-        className="w-24 h-24 object-contain" 
-        alt="" 
-        referrerPolicy="no-referrer"
-      />
-    ), shadow: 'bold-card-shadow-pink' },
+    abc: { title: 'ABC Book', color: 'text-kids-pink', bg: 'bg-theme-abc', icon: <BookOpen size={80} strokeWidth={2.5} className="text-white" />, shadow: 'bold-card-shadow-pink' },
     '123': { title: '123 Book', color: 'text-kids-green', bg: 'bg-theme-123', icon: <Hash size={80} />, shadow: 'bold-card-shadow-lime' },
     animals: { title: 'Animals', color: 'text-kids-orange', bg: 'bg-theme-design', icon: (
       <div className="relative w-24 h-24 flex items-center justify-center">
@@ -53,13 +47,11 @@ export const DetailView = ({ categoryId, onBack }: DetailViewProps) => {
         />
       </div>
     ), shadow: 'bold-card-shadow-orange' },
-    drawing: { title: 'Nature Book', color: 'text-kids-green', bg: 'bg-theme-drawing', icon: (
-      <img 
-        src="/stickers/Rose-v1.png" 
-        className="w-24 h-24 object-contain" 
-        alt="" 
-        referrerPolicy="no-referrer"
-      />
+    drawing: { title: 'Flower & Fruits', color: 'text-kids-green', bg: 'bg-theme-drawing', icon: (
+      <div className="relative w-28 h-28 flex items-center justify-center">
+        <Flower size={56} className="text-pink-300 absolute left-0 top-0 z-10 drop-shadow-md animate-pulse" strokeWidth={2.5} />
+        <Apple size={52} className="text-red-300 absolute right-0 bottom-0 z-20 drop-shadow-md" strokeWidth={2.5} />
+      </div>
     ), shadow: 'bold-card-shadow-green' },
     shape: { title: 'Shapes', color: 'text-kids-blue', bg: 'bg-theme-shapes', icon: <ShapesIcon size={80} />, shadow: 'bold-card-shadow-blue' },
     color: { title: 'Colors', color: 'text-kids-purple', bg: 'bg-theme-colors', icon: <PaintBucket size={80} />, shadow: 'bold-card-shadow-purple' },

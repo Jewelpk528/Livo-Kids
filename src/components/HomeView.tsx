@@ -7,7 +7,8 @@ import {
   Flower, 
   Shapes as ShapesIcon, 
   PaintBucket,
-  PawPrint
+  PawPrint,
+  Apple
 } from "lucide-react";
 import { AdBanner } from './AdBanner';
 
@@ -51,14 +52,7 @@ const LearningCard = ({ title, icon, color, shadowClass, onClick }: CardProps) =
 
 export const HomeView = ({ onSelectCategory }: { onSelectCategory: (id: string) => void }) => {
   const categories = [
-    { id: 'abc', title: 'ABC Book', icon: (
-      <img 
-        src="/stickers/Apple-v1.png" 
-        className="w-10 h-10 object-contain" 
-        alt="" 
-        referrerPolicy="no-referrer"
-      />
-    ), color: 'bg-theme-abc', shadowClass: 'bold-card-shadow-pink' },
+    { id: 'abc', title: 'ABC Book', icon: <BookOpen size={28} strokeWidth={2.5} />, color: 'bg-theme-abc', shadowClass: 'bold-card-shadow-pink' },
     { id: '123', title: '123 Book', icon: <Hash size={28} />, color: 'bg-theme-123', shadowClass: 'bold-card-shadow-lime' },
     { id: 'animals', title: 'Animals', icon: (
       <div className="relative w-10 h-10 flex items-center justify-center">
@@ -74,13 +68,11 @@ export const HomeView = ({ onSelectCategory }: { onSelectCategory: (id: string) 
         />
       </div>
     ), color: 'bg-theme-design', shadowClass: 'bold-card-shadow-orange' },
-    { id: 'drawing', title: 'Nature Book', icon: (
-      <img 
-        src="/stickers/Rose-v1.png" 
-        className="w-10 h-10 object-contain" 
-        alt="" 
-        referrerPolicy="no-referrer"
-      />
+    { id: 'drawing', title: 'Flower & Fruits', icon: (
+      <div className="relative w-12 h-12 flex items-center justify-center">
+        <Flower size={30} className="text-pink-500 absolute left-[-4px] top-[-4px] drop-shadow-sm" strokeWidth={3} />
+        <Apple size={30} className="text-red-500 absolute right-[-4px] bottom-[-4px] drop-shadow-sm" strokeWidth={3} />
+      </div>
     ), color: 'bg-theme-drawing', shadowClass: 'bold-card-shadow-green' },
     { id: 'shape', title: 'Shapes', icon: <ShapesIcon size={28} />, color: 'bg-theme-shapes', shadowClass: 'bold-card-shadow-blue' },
     { id: 'color', title: 'Colors', icon: <PaintBucket size={28} />, color: 'bg-theme-colors', shadowClass: 'bold-card-shadow-purple' },
