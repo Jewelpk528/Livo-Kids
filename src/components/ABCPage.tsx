@@ -15,7 +15,7 @@ const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 const WORDS: Record<string, { word: string; emoji: string; color: string; image?: string }> = {
   A: { word: "Apple", emoji: "🍎", color: "bg-red-400", image: "/stickers/Apple-v1.png" },
   B: { word: "Banana", emoji: "🍌", color: "bg-yellow-400", image: "/stickers/Banana-v1.png" },
-  C: { word: "Cherry", emoji: "🍒", color: "bg-red-500", image: "/stickers/cat.png" },
+  C: { word: "Cherry", emoji: "🍒", color: "bg-red-500", image: "/stickers/Cherry-v1.png" },
   D: { word: "Dolphin", emoji: "🐬", color: "bg-blue-300", image: "/stickers/Dolphine-v1.png" },
   E: { word: "Elephant", emoji: "🐘", color: "bg-gray-400", image: "/stickers/Elephant-v1.png" },
   F: { word: "Fish", emoji: "🐟", color: "bg-cyan-400", image: "/stickers/Clownfish-v1.png" },
@@ -30,7 +30,7 @@ const WORDS: Record<string, { word: string; emoji: string; color: string; image?
   O: { word: "Owl", emoji: "🦉", color: "bg-indigo-500", image: "/stickers/Owl-v1.png" },
   P: { word: "Panda", emoji: "🐼", color: "bg-gray-700", image: "/stickers/Panda-v1.png" },
   Q: { word: "Queen", emoji: "👸", color: "bg-purple-600" },
-  R: { word: "Rose", emoji: "🌹", color: "bg-red-40", image: "/stickers/Rose-v1.png" },
+  R: { word: "Rose", emoji: "🌹", color: "bg-red-400", image: "/stickers/Rose-v1.png" },
   S: { word: "Shark", emoji: "🦈", color: "bg-slate-500", image: "/stickers/Shark-v1.png" },
   T: { word: "Tiger", emoji: "🐯", color: "bg-orange-600", image: "/stickers/Tiger-v1.png" },
   U: { word: "Unicorn", emoji: "🦄", color: "bg-fuchsia-500" },

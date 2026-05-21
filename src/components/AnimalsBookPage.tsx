@@ -58,7 +58,7 @@ const bookData: BookCategory[] = [
       { name: "Kingfisher", color: "bg-blue-50", image: "/stickers/Kingfisher-v1.png" },
       { name: "Woodpecker", color: "bg-blue-50", image: "/stickers/Woodpecker-v1.png" },
       { name: "Penguin", color: "bg-slate-50", image: "/stickers/Penguin-v1.png" },
-      { name: "Swan", color: "bg-sky-50", image: "/stickers/swan.png" },
+      { name: "Swan", color: "bg-sky-50", image: "/stickers/Swan-v1.png" },
     ]
   },
   {
