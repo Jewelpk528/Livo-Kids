@@ -1,0 +1,10 @@
+https://games.livo.ink/
+
+Live URLs
+URL
+Install landing	https://livo.ink/ • https://www.livo.ink/
+Admin panel	https://admin.livo.ink/backend/auth/login
+Socket server	https://socket.livo.ink/socket.io/
+WebGL game	https://games.livo.ink/
+Android APK	https://games.livo.ink/game.apk
+iOS Web Clip	tap "Download iOS App" on https://livo.ink/
